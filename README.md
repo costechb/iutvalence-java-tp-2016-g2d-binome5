@@ -1,11 +1,7 @@
-iutvalence-java-tp-2016-g2d-binome5
-# turn of light
+# Turn Off Light
 
-1er mini projet java
+Mini-projet POO
 
-Binôme
-
--Hugo Ferrant
-
--Benoit Costechareyre
-
+Binôme :
+- Hugo Ferrant
+- Benoit Costechareyre
