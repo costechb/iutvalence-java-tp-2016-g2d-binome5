@@ -1,12 +1,8 @@
-
-## turn of light
+# turn of light
 
 1er mini projet java
 
-Binôme
+Binôme :
 
--Hugo Ferrant
-
--Benoit Costechareyre
-
-iutvalence-java-tp-2016-g2d-binome5
+- Hugo Ferrant
+- Benoit Costechareyre
