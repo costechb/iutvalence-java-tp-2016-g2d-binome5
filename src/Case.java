@@ -10,5 +10,4 @@ public class Case {
 	public int getCoordonnee() {
 		return coordonnee;
 	}
-
 }

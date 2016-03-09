@@ -20,5 +20,4 @@ public class Partie {
 	public Joueur getTourJoueur() {
 		return tourJoueur;
 	}
-
 }

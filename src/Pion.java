@@ -4,7 +4,7 @@ public class Pion {
 	private boolean isCarre = true;
 	private boolean isBlanc = true;
 	private boolean isPlein = true;
-	private string nomImage;
+	private string nomImage = GrandCarreBlancPlein;
 
 	public boolean getGrand() {
 		// TODO - implement Pion.getGrand

@@ -5,5 +5,4 @@ public class CaseStock extends Case {
 	public boolean getPleine() {
 		return isPleine;
 	}
-
 }
