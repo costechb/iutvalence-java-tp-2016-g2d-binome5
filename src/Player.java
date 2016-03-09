@@ -1,4 +1,4 @@
-public class Joueur {
+public class Player {
 
 	private String pseudo;
 
