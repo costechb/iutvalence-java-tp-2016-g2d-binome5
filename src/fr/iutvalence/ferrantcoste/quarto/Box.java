@@ -1,3 +1,5 @@
+package fr.iutvalence.ferrantcoste.quarto;
+
 public class Box {
 
 	protected boolean isOccuped = false;

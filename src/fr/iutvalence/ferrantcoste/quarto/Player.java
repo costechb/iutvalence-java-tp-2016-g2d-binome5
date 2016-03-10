@@ -1,3 +1,5 @@
+package fr.iutvalence.ferrantcoste.quarto;
+
 public class Player {
 
 	private String pseudo;

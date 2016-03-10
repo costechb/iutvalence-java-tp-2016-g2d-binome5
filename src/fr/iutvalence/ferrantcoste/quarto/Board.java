@@ -1,3 +1,5 @@
+package fr.iutvalence.ferrantcoste.quarto;
+
 public class Board {
 
 	private final static int NB_COLUMN_MAX = 4;
