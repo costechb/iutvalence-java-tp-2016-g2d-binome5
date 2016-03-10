@@ -1,25 +1,18 @@
 package fr.iutvalence.ferrantcoste.quarto;
 
+/**
+ * TODO.
+ *
+ * @author TODO
+ * @version TODO
+ */
 public class Game {
-
-	private Player player1;
-	private Player player2;
-	private Player winner;
-	private Player playerTurn;
-
-	public Player getPlayer1() {
-		return player1;
-	}
-
-	public Player getPlayer2() {
-		return player2;
-	}
-
-	public Player getWinner() {
-		return winner;
-	}
-
-	public Player getPlayerTurn() {
-		return playerTurn;
-	}
+    /** TODO. */
+    private Player player1;
+    /** TODO. */
+    private Player player2;
+    /** TODO. */
+    private Player winner;
+    /** TODO. */
+    private Player playerTurn;
 }

@@ -1,10 +1,22 @@
 package fr.iutvalence.ferrantcoste.quarto;
 
+/**
+ * TODO.
+ *
+ * @author TODO
+ * @version TODO
+ */
 public class Player {
 
-	private String pseudo;
+    /** TODO. */
+    private String pseudo;
 
-	public String getPseudo() {
-		return pseudo;
-	}
+    /**
+     * TODO.
+     *
+     * @return TODO
+     */
+    public String getPseudo() {
+        return pseudo;
+    }
 }

@@ -1,9 +1,16 @@
 package fr.iutvalence.ferrantcoste.quarto;
 
+/**
+ * TODO.
+ *
+ * @author TODO
+ * @version TODO
+ */
 public class BoxStock extends Box {
 
-	public BoxStock() {
-		this.isOccuped = true;
-	}
+	/** TODO. */
+    public BoxStock() {
+        this.isOccuped = true;
+    }
 
 }

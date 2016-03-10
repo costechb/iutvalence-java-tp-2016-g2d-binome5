@@ -1,31 +1,65 @@
 package fr.iutvalence.ferrantcoste.quarto;
 
+/**
+ * TODO.
+ *
+ * @author TODO
+ * @version TODO
+ */
 public class Piece {
+    /** TODO. */
+    private boolean isTall = true;
+    /** TODO. */
+    private boolean isSquare = true;
+    /** TODO. */
+    private boolean isWhite = true;
+    /** TODO. */
+    private boolean isFull = true;
+    /** TODO. */
+    private String imageName;
 
-	private boolean isTall = true;
-	private boolean isSquare = true;
-	private boolean isWhite = true;
-	private boolean isFull = true;
-	private String imageName;
+    /**
+     * TODO.
+     *
+     * @return TODO
+     */
+    public boolean isTall() {
+        return isTall;
+    }
 
-	public boolean isTall() {
-		return isTall;
-	}
+    /**
+     * TODO.
+     *
+     * @return TODO
+     */
+    public boolean isSquare() {
+        return isSquare;
+    }
 
-	public boolean isSquare() {
-		return isSquare;
-	}
+    /**
+     * TODO.
+     *
+     * @return TODO
+     */
+    public boolean isWhite() {
+        return isWhite;
+    }
 
-	public boolean isWhite() {
-		return isWhite;
-	}
+    /**
+     * TODO.
+     *
+     * @return TODO
+     */
+    public boolean isFull() {
+        return isFull;
+    }
 
-	public boolean isFull() {
-		return isFull;
-	}
-
-	public String getImageName() {
-		return imageName;
-	}
-
+    /**
+     * TODO.
+     *
+     * @return TODO
+     */
+    public String getImageName() {
+        return imageName;
+    }
 }

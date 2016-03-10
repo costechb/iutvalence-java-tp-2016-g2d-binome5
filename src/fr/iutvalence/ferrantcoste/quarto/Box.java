@@ -1,16 +1,35 @@
 package fr.iutvalence.ferrantcoste.quarto;
 
+/**
+ * TODO.
+ *
+ * @author TODO
+ * @version TODO
+ */
 public class Box {
-
-	protected boolean isOccuped = false;
+	/** TODO. */
+    protected boolean isOccuped = false;
+	/** TODO. */
 	private int coordinates;
 
-	public boolean getOccuped() {
-		return isOccuped;
-	}
+	// TODO Simplify method name.
+	/**
+	 * TODO.
+	 *
+	 * @return TODO
+     */
+    public boolean getOccuped() {
+        return isOccuped;
+    }
 
-	public int getCoordinates() {
-		return coordinates;
-	}
+	// TODO Simplify method name.
+	/**
+	 * TODO.
+	 *
+	 * @return TODO
+     */
+    public int getCoordinates() {
+        return coordinates;
+    }
 
 }
