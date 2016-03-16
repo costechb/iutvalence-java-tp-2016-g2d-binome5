@@ -1,18 +1,22 @@
 package fr.iutvalence.ferrantcoste.quarto;
 
 /**
- * TODO.
+ * define a board like a table of box
  *
- * @author TODO
- * @version TODO
+ * @author Ferrant & Costechareyre
+ * @version 1
  */
 public class Board {
-    /** TODO. */
-    private static final int NB_COLUMN_MAX = 4;
-    /** TODO. */
-    private static final int NB_LINE_MAX = 4;
-    /** TODO. */
-    private static final int NB_BOX_MAX = 16;
-    /** TODO. */
-    private final Box[][] theBoard = new Box[NB_COLUMN_MAX][NB_LINE_MAX];
+
+	/** TODO */
+	private final Box[][] theBoard;
+
+	public Board(int size, boolean initialState) {
+		this.theBoard = new Box[size][size];
+		for (int i = 0; i < size; i++) {
+			for (int j = 0; j < size; j++) {
+				this.theBoard[i][j] = new Box(initialState);
+			}
+		}
+	}
 }
