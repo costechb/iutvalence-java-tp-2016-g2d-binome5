@@ -7,6 +7,7 @@ package fr.iutvalence.ferrantcoste.quarto;
  * @version 1
  */
 public class Piece {
+
 	/** TODO. */
 	private boolean isTall = true;
 	/** TODO. */

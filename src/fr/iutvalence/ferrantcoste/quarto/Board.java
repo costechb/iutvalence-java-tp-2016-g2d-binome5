@@ -9,14 +9,17 @@ package fr.iutvalence.ferrantcoste.quarto;
 public class Board {
 
 	/** TODO */
-	private final Box[][] theBoard;
+	private final Piece[][] theBoard;
 
-	public Board(int size, boolean initialState) {
-		this.theBoard = new Box[size][size];
-		for (int i = 0; i < size; i++) {
-			for (int j = 0; j < size; j++) {
-				this.theBoard[i][j] = new Box(initialState);
-			}
-		}
+	public Board(int size) {
+		this.theBoard = new Piece[size][size];
+	}
+
+	public void putPiece(int i, int j, Piece piece) {
+		theBoard[i][j] = piece;
+	}
+
+	public boolean isOccuped(int i, int j) {
+		return this.theBoard[i][j] != null;
 	}
 }
