@@ -8,16 +8,17 @@ package fr.iutvalence.ferrantcoste.quarto;
  */
 public class Piece {
 
+	/** isTall is true if the Piece is Tall */
+	private boolean isTall;
+	/** isSquare is true if the Piece is Square */
+	private boolean isSquare;
+	/** isWhite is true if the Piece is White */
+	private boolean isWhite;
+	/** isFull is true if the Piece is Full */
+	private boolean isFull;
+
 	/** TODO. */
-	private boolean isTall = true;
-	/** TODO. */
-	private boolean isSquare = true;
-	/** TODO. */
-	private boolean isWhite = true;
-	/** TODO. */
-	private boolean isFull = true;
-	/** TODO. */
-	private String imageName;
+	// private String imageName;
 
 	public Piece(boolean full, boolean square, boolean tall, boolean white) {
 		this.isFull = full;

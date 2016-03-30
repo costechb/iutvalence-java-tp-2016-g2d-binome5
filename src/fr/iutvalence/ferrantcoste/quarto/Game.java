@@ -1,6 +1,7 @@
 package fr.iutvalence.ferrantcoste.quarto;
 
-import java.util.Scanner;
+import java.util.Random; // sert à sortir un nombre aléatoire
+// sert pour récupérer des données en lecture
 
 /**
  * TODO.
@@ -10,27 +11,16 @@ import java.util.Scanner;
  */
 public class Game {
 
-	/** playerTurn stock the player who have to play. */
-	private Player playerTurn;
+	private Player[] players;
+
+	/** Current player. */
+	private int currentPlayer;
 
 	/** DEFAULT_SIZE is the maximum number of column and lines . */
 	public static final int DEFAULT_SIZE = 4;
 
-	public static void main(String[] args) {
-
-		/* Start of initializing the players */
-		Scanner sc1 = new Scanner(System.in);
-		System.out.println("Veuillez saisir le nom du premier joueur :");
-		String pseudo1 = sc1.nextLine();
-		System.out.println("Bonjour  " + pseudo1 + "!");
-
-		Scanner sc2 = new Scanner(System.in);
-		System.out.println("Veuillez saisir le nom du second joueur :");
-		String pseudo2 = sc2.nextLine();
-		System.out.println("Bonjour  " + pseudo2 + "!");
-
-		Player player1 = new Player(1, pseudo1);
-		Player player2 = new Player(2, pseudo2);
+	public Game(Player player1, Player player2) {
+		players = new Player[] { player1, player2 };
 		/* End of initializing the players */
 
 		/* Start initializing the boards */
@@ -56,15 +46,28 @@ public class Game {
 		boardStock.putPiece(3, 1, new Piece(true, true, false, true));
 		boardStock.putPiece(3, 2, new Piece(true, true, true, false));
 		boardStock.putPiece(3, 3, new Piece(true, true, true, true));
+
 		/* End of initializing the players */
+		currentPlayer = new Random().nextInt(2);
+
+	}
+
+	public void run() {
+		System.out.printf("Ce sera donc %s qui jouera en premier !", players[currentPlayer]);
+		
+		/**is true when someone wins
+		 */
+		boolean victory = false; 
+		do {
+
+		} while (victory == true);
 
 		/*
-		 * public void dessineEchiquier(){
-		 * 
-		 * int ligne , col , i , ligElem ; for (ligne=0;ligne<nbLignes;ligne++)
-		 * { traceLigneEtoiles((LARGEUR_CASE-1)*NB_COL+1); for (ligElem=0;
-		 * ligElem < (HAUTEUR_CASE-1)/2;ligElem++) {traceLigneIntermediaire();}
-		 * for (col=0;col<NB_COL;col++) { printf("*"); if (LARGEUR_CASE%2 != 0)
+		 * public void dessineEchiquier(){ int ligne , col , i , ligElem ; for
+		 * (ligne=0;ligne<nbLignes;ligne++) {
+		 * traceLigneEtoiles((LARGEUR_CASE-1)*NB_COL+1); for (ligElem=0; ligElem
+		 * < (HAUTEUR_CASE-1)/2;ligElem++) {traceLigneIntermediaire();} for
+		 * (col=0;col<NB_COL;col++) { printf("*"); if (LARGEUR_CASE%2 != 0)
 		 * printf(" ") ; tracePlusieursEspaces((LARGEUR_CASE-4)/2); if
 		 * (echiquier[ligne][col] != CAVALIER_NON_PASSE)
 		 * printf("%2d",echiquier[ligne][col]); else printf("  ");
@@ -83,9 +86,7 @@ public class Game {
 		 * traceLigneIntermediaire(void) { int i,k; for (i=0;i<NB_COL;i++) {
 		 * printf("*"); for(k=0;k<LARGEUR_CASE-2;k++) printf(" "); }
 		 * printf("*\n"); } void tracePlusieursEspaces(int nbEspaces) { int i;
-		 * for (i=0;i<nbEspaces;i++) printf (" ");
-		 * 
-		 * }
+		 * for (i=0;i<nbEspaces;i++) printf (" "); }
 		 */
 
 	}

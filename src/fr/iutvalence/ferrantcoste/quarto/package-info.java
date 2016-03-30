@@ -5,4 +5,3 @@
  * @version 1
  */
 package fr.iutvalence.ferrantcoste.quarto;
-
