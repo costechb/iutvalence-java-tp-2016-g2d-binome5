@@ -17,6 +17,22 @@ public class Piece {
 	/** isFull is true if the Piece is Full */
 	private boolean isFull;
 
+	public boolean getTall() {
+		return isTall;
+	}
+
+	public boolean getSquare() {
+		return isSquare;
+	}
+
+	public boolean getWhite() {
+		return isWhite;
+	}
+
+	public boolean getFull() {
+		return isFull;
+	}
+
 	/** TODO. */
 	// private String imageName;
 

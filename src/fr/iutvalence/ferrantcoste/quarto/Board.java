@@ -19,6 +19,12 @@ public class Board {
 		theBoard[i][j] = piece;
 	}
 
+	public Piece pickPiece(int i, int j) {
+		Piece pieceTemp = theBoard[i][j];
+		theBoard[i][j] = null;
+		return pieceTemp;
+	}
+	
 	public boolean isOccuped(int i, int j) {
 		return this.theBoard[i][j] != null;
 	}

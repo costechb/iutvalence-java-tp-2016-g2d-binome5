@@ -8,7 +8,7 @@ public class Quarto {
 		
 		/* Start of initializing the players */
 		Scanner sc = new Scanner(System.in);
-		
+			
 		System.out.println("Veuillez saisir le nom du joueur 1 :");
 		Player player1 = new Player(1, sc.nextLine());
 		System.out.println("Bonjour " + player1.getPseudo() + " !");

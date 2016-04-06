@@ -19,15 +19,16 @@ public class Game {
 	/** DEFAULT_SIZE is the maximum number of column and lines . */
 	public static final int DEFAULT_SIZE = 4;
 
+	/* Start initializing the boards */
+	Board boardStock = new Board(DEFAULT_SIZE);
+	Board boardPlayed = new Board(DEFAULT_SIZE);
+	Board boardToPlay = new Board(1);
+	/* End of initializing the boards */
+	
+	
 	public Game(Player player1, Player player2) {
 		players = new Player[] { player1, player2 };
 		/* End of initializing the players */
-
-		/* Start initializing the boards */
-		Board boardStock = new Board(DEFAULT_SIZE);
-		Board boardPlayed = new Board(DEFAULT_SIZE);
-		Board boardToPlay = new Board(1);
-		/* End of initializing the boards */
 
 		/* Start initializing the players */
 		boardStock.putPiece(0, 0, new Piece(false, false, false, false));
@@ -50,17 +51,80 @@ public class Game {
 		/* End of initializing the players */
 		currentPlayer = new Random().nextInt(2);
 
-	}
+		}
 
+	
+	public boolean checkAttribut(Piece p1,Piece p2,Piece p3,Piece p4){
+		boolean full=false;
+		boolean square=false;
+		boolean white=false;
+		boolean tall=false;
+
+		for(int i=0; i<4; i++){
+			if( p1.getFull()==p2.getFull()==p3.getFull()==p4.getFull() ){
+				full=true;
+				}
+			if( p1.getSquare()==p2.getSquare()==p3.getSquare()==p4.getSquare() ){
+				square=true;
+			}
+			if( p1.getWhite()==p2.getWhite()==p3.getWhite()==p4.getWhite() ){
+				white=true;
+			}
+			if( p1.getTall()==p2.getTall()==p3.getTall()==p4.getTall() ){
+				tall=true;
+			}
+		}
+		return unBool;
+	}
+	
 	public void run() {
-		System.out.printf("Ce sera donc %s qui jouera en premier !", players[currentPlayer]);
+		System.out.printf("%s will play first this time !", players[currentPlayer]);
+		
+		
 		
 		/**is true when someone wins
 		 */
 		boolean victory = false; 
 		do {
-
-		} while (victory == true);
+			System.out.printf("%s , pick a piece for your opponent", players[currentPlayer]);
+			/**
+			 * TODO.
+			 * lecture de la pièce choisie
+			 * i et j à récupérer à la saisie du joueur 
+			 */
+			int i =0, j=0;
+			boardToPlay.putPiece(0,0,boardStock.pickPiece(i,j));
+			
+			// Turn changing
+			currentPlayer= ++currentPlayer % 2;		// good formule by Benoit, turns 0 in 1 and 1 to 0
+			
+		/*	if (currentPlayer==0) 
+				{currentPlayer=1;}
+			else 
+				{currentPlayer=0;}*/
+			
+			System.out.printf("%s , you can now play the piece that your oppenent choose for you", players[currentPlayer]);
+			
+			/**
+			 * TODO.
+			 * lecture de la case choisie
+			 * i2 et j2 à récupérer à la saisie du joueur 
+			 */
+			int i2 =0, j2=0;
+			boardPlayed.putPiece(i2,j2,boardToPlay.pickPiece(1,1));
+			
+			if( i2==0&&(j2==0||j2==3) || i2==3&&(j2==0||j2==3) || i2==1&&(j2==1||j2==2) || i2==2&&(j2==1||j2==2) ) {
+				// c'est dans une diagonnale 
+				// donc tester les diagonnales
+			}
+			
+		
+			
+				
+		
+		} while (!victory);
+		
+		
 
 		/*
 		 * public void dessineEchiquier(){ int ligne , col , i , ligElem ; for
