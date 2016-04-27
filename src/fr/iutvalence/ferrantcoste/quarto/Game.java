@@ -24,8 +24,8 @@ public class Game {
 	Board boardPlayed = new Board(DEFAULT_SIZE);
 	Board boardToPlay = new Board(1);
 	/* End of initializing the boards */
-	
-	
+
+
 	public Game(Player player1, Player player2) {
 		players = new Player[] { player1, player2 };
 		/* End of initializing the players */
@@ -51,37 +51,54 @@ public class Game {
 		/* End of initializing the players */
 		currentPlayer = new Random().nextInt(2);
 
-		}
-
-	
-	public boolean checkAttribut(Piece p1,Piece p2,Piece p3,Piece p4){
-		boolean full=false;
-		boolean square=false;
-		boolean white=false;
-		boolean tall=false;
-
-		for(int i=0; i<4; i++){
-			if( p1.getFull()==p2.getFull()==p3.getFull()==p4.getFull() ){
-				full=true;
-				}
-			if( p1.getSquare()==p2.getSquare()==p3.getSquare()==p4.getSquare() ){
-				square=true;
-			}
-			if( p1.getWhite()==p2.getWhite()==p3.getWhite()==p4.getWhite() ){
-				white=true;
-			}
-			if( p1.getTall()==p2.getTall()==p3.getTall()==p4.getTall() ){
-				tall=true;
-			}
-		}
-		return unBool;
 	}
-	
+
+
+	public int checkCommonCarac(Piece p1,Piece p2,Piece p3,Piece p4){
+		if (p1 == null || p2 == null || p3 == null || p4 == null) {
+			return 0;
+		}
+
+		if( p1.getFull()==p2.getFull()==p3.getFull()==p4.getFull() ){
+			if (p1.getFull()) {
+				return 1;					// 1 mean the 4 pieces are all full
+			}
+			else {
+				return 2;					// 2 mean the 4 pieces are all not full
+			}
+		}
+		if( p1.getSquare()==p2.getSquare()==p3.getSquare()==p4.getSquare() ){
+			if (p1.getSquare()==true) {
+				return 3;					// 3 mean the 4 pieces are all square
+			}
+			else {
+				return 4;					// 4 mean the 4 pieces are all not square
+			}		
+		}
+		if( p1.getWhite()==p2.getWhite()==p3.getWhite()==p4.getWhite() ){
+			if (p1.getWhite()==true) {
+				return 5;					// 5 mean the 4 pieces are all white
+			}
+			else {
+				return 6;					// 6 mean the 4 pieces are all not white
+			}		
+		}
+		if( p1.getTall()==p2.getTall()==p3.getTall()==p4.getTall() ){
+			if (p1.getTall()==true) {
+				return 7;					// 7 mean the 4 pieces are all tall
+			}
+			else {
+				return 8;					// 8 mean the 4 pieces are all not tall
+			}		
+		}
+		return 0;							// 0 mean the 4 pieces have nothing in common
+	}
+
 	public void run() {
 		System.out.printf("%s will play first this time !", players[currentPlayer]);
-		
-		
-		
+
+
+
 		/**is true when someone wins
 		 */
 		boolean victory = false; 
@@ -94,17 +111,17 @@ public class Game {
 			 */
 			int i =0, j=0;
 			boardToPlay.putPiece(0,0,boardStock.pickPiece(i,j));
-			
+
 			// Turn changing
 			currentPlayer= ++currentPlayer % 2;		// good formule by Benoit, turns 0 in 1 and 1 to 0
-			
-		/*	if (currentPlayer==0) 
+
+			/*	if (currentPlayer==0) 
 				{currentPlayer=1;}
 			else 
 				{currentPlayer=0;}*/
-			
+
 			System.out.printf("%s , you can now play the piece that your oppenent choose for you", players[currentPlayer]);
-			
+
 			/**
 			 * TODO.
 			 * lecture de la case choisie
@@ -112,19 +129,40 @@ public class Game {
 			 */
 			int i2 =0, j2=0;
 			boardPlayed.putPiece(i2,j2,boardToPlay.pickPiece(1,1));
-			
+
+
 			if( i2==0&&(j2==0||j2==3) || i2==3&&(j2==0||j2==3) || i2==1&&(j2==1||j2==2) || i2==2&&(j2==1||j2==2) ) {
 				// c'est dans une diagonnale 
 				// donc tester les diagonnales
+				victory = (i2 == j2) 
+						? !(checkCommonCarac(boardPlayed.watchPiece(0,0), boardPlayed.watchPiece(1,1), boardPlayed.watchPiece(2,2), boardPlayed.watchPiece(3,3)) == 0 )
+						: !(checkCommonCarac(boardPlayed.watchPiece(0,3), boardPlayed.watchPiece(1,2), boardPlayed.watchPiece(2,1), boardPlayed.watchPiece(3,0)) == 0 );					
 			}
-			
-		
-			
+			if (!victory)	{
 				
-		
+				if ( checkCommonCarac(boardPlayed.watchPiece(i2,0),boardPlayed.watchPiece(i2,1),boardPlayed.watchPiece(i2,2),boardPlayed.watchPiece(i2,3) ) == 0 ) {
+					victory = false;
+				}
+				if ( checkCommonCarac(boardPlayed.watchPiece(0,j2),boardPlayed.watchPiece(1,j2),boardPlayed.watchPiece(2,j2),boardPlayed.watchPiece(3,j2) ) == 0 ) {
+					victory = false;
+				}
+							
+			}
+
+
+
+
+			// tester les lignes et colonnes
+
+
+
+
+
+
+
 		} while (!victory);
-		
-		
+
+
 
 		/*
 		 * public void dessineEchiquier(){ int ligne , col , i , ligElem ; for

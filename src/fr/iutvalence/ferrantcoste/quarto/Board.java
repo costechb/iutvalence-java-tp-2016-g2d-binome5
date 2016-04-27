@@ -1,5 +1,7 @@
 package fr.iutvalence.ferrantcoste.quarto;
 
+import java.util.Stack;
+
 /**
  * define a board like a table of box
  *
@@ -23,6 +25,9 @@ public class Board {
 		Piece pieceTemp = theBoard[i][j];
 		theBoard[i][j] = null;
 		return pieceTemp;
+	}
+	public Piece watchPiece(int i, int j) {
+		return theBoard[i][j];
 	}
 	
 	public boolean isOccuped(int i, int j) {
