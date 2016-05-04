@@ -1,7 +1,4 @@
 package fr.iutvalence.ferrantcoste.quarto;
-
-import java.util.Stack;
-
 /**
  * define a board like a table of box
  *
@@ -17,16 +14,35 @@ public class Board {
 		this.theBoard = new Piece[size][size];
 	}
 
-	public void putPiece(int i, int j, Piece piece) {
+	public void putPiece(int i, int j, Piece piece) throws PieceAlreadyHereException , OutsideOfBoardException {
+		
+		if ( i>3 || i<0 || j>3 || j<0 )
+			{	throw new OutsideOfBoardException();	}
+		if (theBoard[i][j] != null) 
+			{	throw new PieceAlreadyHereException();	}
+		
 		theBoard[i][j] = piece;
 	}
 
-	public Piece pickPiece(int i, int j) {
+	public Piece pickPiece(int i, int j) throws NoPieceHereException , OutsideOfBoardException {
+		
+		if ( i>3 || i<0 || j>3 || j<0 )
+			{	throw new OutsideOfBoardException();	}		
+		if (theBoard[i][j] == null) 
+			{	throw new NoPieceHereException();	}
+		
 		Piece pieceTemp = theBoard[i][j];
 		theBoard[i][j] = null;
 		return pieceTemp;
-	}
-	public Piece watchPiece(int i, int j) {
+		}
+	
+	public Piece watchPiece(int i, int j) throws NoPieceHereException , OutsideOfBoardException {
+		
+		if ( i>3 || i<0 || j>3 || j<0 )
+		{	throw new OutsideOfBoardException();	}		
+		if (theBoard[i][j] == null) 
+		{	throw new NoPieceHereException();	}
+		
 		return theBoard[i][j];
 	}
 	
