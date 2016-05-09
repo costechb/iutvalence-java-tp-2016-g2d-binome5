@@ -173,36 +173,7 @@ public class Game {
 			}
 
 		} while (!victory);
-
-
-
 		
-		/*
-		 public void dessineEchiquier(){ int ligne , col , i , ligElem ; for
-		(ligne=0;ligne<nbLignes;ligne++) {
-		traceLigneEtoiles((LARGEUR_CASE-1)*NB_COL+1); for (ligElem=0; ligElem
-		< (HAUTEUR_CASE-1)/2;ligElem++) {traceLigneIntermediaire();} for
-		(col=0;col<NB_COL;col++) { printf("*"); if (LARGEUR_CASE%2 != 0)
-		printf(" ") ; tracePlusieursEspaces((LARGEUR_CASE-4)/2); if
-		(echiquier[ligne][col] != CAVALIER_NON_PASSE)
-		printf("%2d",echiquier[ligne][col]); else printf("  ");
 		
-		tracePlusieursEspaces((LARGEUR_CASE-4)/2);
-		
-		} printf("*\n");
-		
-		 
-		for (ligElem=0; ligElem < (HAUTEUR_CASE-1)/2;ligElem++)
-		traceLigneIntermediaire(); }
-		traceLigneEtoiles((LARGEUR_CASE-1)*NB_COL+1);
-		
-		} void traceLigneEtoiles(int nbEtoiles) { int i; for
-		(i=0;i<nbEtoiles;i++) printf("*"); printf("\n"); } void
-		traceLigneIntermediaire(void) { int i,k; for (i=0;i<NB_COL;i++) {
-		printf("*"); for(k=0;k<LARGEUR_CASE-2;k++) printf(" "); }
-		printf("*\n"); } void tracePlusieursEspaces(int nbEspaces) { int i;
-		for (i=0;i<nbEspaces;i++) printf (" "); }
-		*/ 
-
 	}
 }
