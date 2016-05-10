@@ -30,7 +30,7 @@ public class Game {
 	public Game(Player player1, Player player2) {
 		players = new Player[] { player1, player2 };
 		/* End of initializing the players */
-
+		
 		try {
 			boardStock.putPiece(0, 0, new Piece(false, false, false, false));
 			boardStock.putPiece(0, 1, new Piece(false, false, false, true));
@@ -56,6 +56,7 @@ public class Game {
 		currentPlayer = new Random().nextInt(2);
 
 	}
+	
 
 
 	public int checkCommonCarac(Piece p1,Piece p2,Piece p3,Piece p4){
@@ -101,7 +102,7 @@ public class Game {
 	public void run() {
 		System.out.printf("%s will play first this time !", players[currentPlayer]);
 
-
+		System.out.println(boardStock.toString());
 
 		/**is true when someone wins
 		 */

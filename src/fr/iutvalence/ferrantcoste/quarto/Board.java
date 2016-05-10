@@ -9,10 +9,51 @@ public class Board {
 
 	/** TODO */
 	private final Piece[][] theBoard;
+	
+	private final int size;
+	private static final int SIZE=4;
 
 	public Board(int size) {
-		this.theBoard = new Piece[size][size];
+		this.size=size;
+		this.theBoard = new Piece[this.size][this.size];
+		
 	}
+	
+	public Board() {
+		this.size=SIZE;
+		this.theBoard = new Piece[this.size][this.size];
+		
+	}
+	
+	public String toString(){
+		StringBuilder representation =new StringBuilder(500);
+			representation.append("\n");
+			for(int i=0 ; i<size ; i++ ){
+				representation.append(" _____");
+			}
+			for(int i=0 ; i<size ; i++ ){
+				
+				representation.append("\n|");
+				
+				for( int j=0; j<size ; j++ ){
+					representation.append("     |");
+	     		}
+				
+				representation.append("\n|");
+				
+				for( int j=0; j<size ; j++ ){
+					representation.append("  ").append(8).append("  |");
+	        	}
+				
+				representation.append("\n|");
+				for( int j=0; j<size ; j++ ){
+					representation.append("_____|");
+				} 
+			}
+			representation.append("\n");
+			return representation.toString();
+	}
+	
 
 	public void putPiece(int i, int j, Piece piece) throws PieceAlreadyHereException , OutsideOfBoardException {
 		
