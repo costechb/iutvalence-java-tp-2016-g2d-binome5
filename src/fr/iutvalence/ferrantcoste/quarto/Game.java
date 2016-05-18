@@ -2,6 +2,7 @@ package fr.iutvalence.ferrantcoste.quarto;
 
 import java.util.Random; // sert à sortir un nombre aléatoire
 // sert pour récupérer des données en lecture
+import java.util.Scanner;
 
 /**
  * TODO.
@@ -32,22 +33,22 @@ public class Game {
 		/* End of initializing the players */
 		
 		try {
-			boardStock.putPiece(0, 0, new Piece(false, false, false, false));
-			boardStock.putPiece(0, 1, new Piece(false, false, false, true));
-			boardStock.putPiece(0, 2, new Piece(false, false, true, false));
-			boardStock.putPiece(0, 3, new Piece(false, false, true, true));
-			boardStock.putPiece(1, 0, new Piece(false, true, false, false));
-			boardStock.putPiece(1, 1, new Piece(false, true, false, true));
-			boardStock.putPiece(1, 2, new Piece(false, true, true, false));
-			boardStock.putPiece(1, 3, new Piece(false, true, true, true));
-			boardStock.putPiece(2, 0, new Piece(true, false, false, false));
-			boardStock.putPiece(2, 1, new Piece(true, false, false, true));
-			boardStock.putPiece(2, 2, new Piece(true, false, true, false));
-			boardStock.putPiece(2, 3, new Piece(true, false, true, true));
-			boardStock.putPiece(3, 0, new Piece(true, true, false, false));
-			boardStock.putPiece(3, 1, new Piece(true, true, false, true));
-			boardStock.putPiece(3, 2, new Piece(true, true, true, false));
-			boardStock.putPiece(3, 3, new Piece(true, true, true, true));
+			boardStock.putPiece(0, 0, new Piece(false, false, false, false,"01"));
+			boardStock.putPiece(0, 1, new Piece(false, false, false, true,"02"));
+			boardStock.putPiece(0, 2, new Piece(false, false, true, false,"03"));
+			boardStock.putPiece(0, 3, new Piece(false, false, true, true,"04"));
+			boardStock.putPiece(1, 0, new Piece(false, true, false, false,"05"));
+			boardStock.putPiece(1, 1, new Piece(false, true, false, true,"06"));
+			boardStock.putPiece(1, 2, new Piece(false, true, true, false,"07"));
+			boardStock.putPiece(1, 3, new Piece(false, true, true, true,"08"));
+			boardStock.putPiece(2, 0, new Piece(true, false, false, false,"09"));
+			boardStock.putPiece(2, 1, new Piece(true, false, false, true,"10"));
+			boardStock.putPiece(2, 2, new Piece(true, false, true, false,"11"));
+			boardStock.putPiece(2, 3, new Piece(true, false, true, true,"12"));
+			boardStock.putPiece(3, 0, new Piece(true, true, false, false,"13"));
+			boardStock.putPiece(3, 1, new Piece(true, true, false, true,"14"));
+			boardStock.putPiece(3, 2, new Piece(true, true, true, false,"15"));
+			boardStock.putPiece(3, 3, new Piece(true, true, true, true,"16"));
 		} catch (PieceAlreadyHereException | OutsideOfBoardException e) {
 			// no possible exception at initialization
 			e.printStackTrace();
@@ -102,21 +103,28 @@ public class Game {
 	public void run() {
 		System.out.printf("%s will play first this time !", players[currentPlayer]);
 
-		System.out.println(boardStock.toString());
+		System.out.println(boardStock.toString(DEFAULT_SIZE));
+		System.out.println(boardToPlay.toString(1));
+		System.out.println(boardPlayed.toString(DEFAULT_SIZE));
+		
 
-		/**is true when someone wins
-		 */
 		boolean victory = false; 
 		do {
-			System.out.printf("%s , pick a piece for your opponent", players[currentPlayer]);
-			/**
-			 * TODO.
-			 * lecture de la pièce choisie
-			 * i et j à récupérer à la saisie du joueur 
-			 */
-			int i =0, j=0;
+			System.out.printf("%s , pick a piece for your opponent \n", players[currentPlayer]);
+			
+			
+			int i2 =0, j2=0;
+			Scanner scI2 = new Scanner(System.in);
+			System.out.println("Veuillez saisir le i de la case :");
+			i2=  scI2.nextInt();
+			Scanner scJ2 = new Scanner(System.in);
+			System.out.println("Veuillez saisir le j de la case :");
+			j2=  scJ2.nextInt();
+
+
+			
 			try {
-				boardToPlay.putPiece(0,0,boardStock.pickPiece(i,j));
+				boardToPlay.putPiece(0,0,boardStock.pickPiece(i2,j2));
 			} catch (PieceAlreadyHereException | OutsideOfBoardException | NoPieceHereException e1) {
 				e1.printStackTrace();
 			}
@@ -124,19 +132,20 @@ public class Game {
 			// Turn changing
 			currentPlayer= ++currentPlayer % 2;		// good formule by Benoit, turns 0 in 1 and 1 to 0
 
-			/*	if (currentPlayer==0) 
-				{currentPlayer=1;}
-			else 
-				{currentPlayer=0;}*/
-
-			System.out.printf("%s , you can now play the piece that your oppenent choose for you", players[currentPlayer]);
-
-			/**
-			 * TODO.
-			 * lecture de la case choisie
-			 * i2 et j2 à récupérer à la saisie du joueur 
-			 */
-			int i2 =0, j2=0;
+			System.out.println(boardStock.toString(DEFAULT_SIZE));
+			System.out.println(boardToPlay.toString(1));
+			System.out.println(boardPlayed.toString(DEFAULT_SIZE));
+			
+			System.out.printf("%s , you can now play the piece that your oppenent choose for you \n", players[currentPlayer]);
+			
+			System.out.println("Veuillez saisir le i de la case :");
+			i2=  scI2.nextInt();
+			System.out.println("Veuillez saisir le j de la case :");
+			j2=  scJ2.nextInt();
+			
+			scI2.close();
+			scJ2.close();
+			
 			
 			try
 			{
