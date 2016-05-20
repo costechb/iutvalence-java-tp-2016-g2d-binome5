@@ -1,7 +1,7 @@
 package fr.iutvalence.ferrantcoste.quarto;
 /**
  * define a board like a table of box
- *gzerqgzergzegzergzerg
+ *
  * @author Ferrant & Costechareyre
  * @version 1
  */
@@ -20,10 +20,11 @@ public class Board {
 	
 	public String toString(int size){
 		StringBuilder representation = new StringBuilder(500);
-			representation.append("\n");
+			
 			for(int i=0 ; i<size ; i++ ){
 				representation.append(" ______");
 			}
+			
 			for(int i=0 ; i<size ; i++ ){
 				
 				representation.append("\n|");
@@ -46,6 +47,7 @@ public class Board {
 					representation.append("______|");
 				} 
 			}
+			
 			representation.append("\n");
 			return representation.toString();
 	}

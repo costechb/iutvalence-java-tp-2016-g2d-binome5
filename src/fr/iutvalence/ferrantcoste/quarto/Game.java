@@ -14,17 +14,16 @@ public class Game {
 
 	private Player[] players;
 
-	/** Current player. */
 	private int currentPlayer;
 
 	/** DEFAULT_SIZE is the maximum number of column and lines . */
 	public static final int DEFAULT_SIZE = 4;
 
-	/** DEFAULT_SIZE is the maximum number of column and lines . */
+	/** This is the Board with the Pieces you have to pick for your opponent . */
 	private final Board boardStock = new Board(DEFAULT_SIZE);
-	/** DEFAULT_SIZE is the maximum number of column and lines . */
+	/** This is the Board with the Piece you have to play with. */
 	private final Board boardPlayed = new Board(DEFAULT_SIZE);
-	/** DEFAULT_SIZE is the maximum number of column and lines . */
+	/** This is the Board with the Pieces you have to place on */
 	private final Board boardToPlay = new Board(1);
 
 	private final Scanner scanner;
@@ -32,7 +31,6 @@ public class Game {
 	public Game(Player player1, Player player2, Scanner sc) {
 		scanner = sc;
 		players = new Player[] { player1, player2 };
-		/* End of initializing the players */
 		
 		try {
 			boardStock.putPiece(0, 0, new Piece(false, false, false, false,"01"));
@@ -51,16 +49,19 @@ public class Game {
 			boardStock.putPiece(3, 1, new Piece(true, true, false, true,"14"));
 			boardStock.putPiece(3, 2, new Piece(true, true, true, false,"15"));
 			boardStock.putPiece(3, 3, new Piece(true, true, true, true,"16"));
-		} catch (PieceAlreadyHereException | OutsideOfBoardException e) {
-			// no possible exception at initialization
-			e.printStackTrace();
-		}
+		} catch (PieceAlreadyHereException | OutsideOfBoardException e) {/* no possible exception at initialization */}
 		
-		currentPlayer = new Random().nextInt(2);
-
+		currentPlayer = new Random().nextInt(2); // choose randomly between 0 and 1
 	}
 	
-
+	public void showBoards() {
+		System.out.println("\n\n This is the Board with the Pieces you have to pick for your oppenent");
+		System.out.println(boardStock.toString(DEFAULT_SIZE));
+		System.out.println("\n\n This is the Board with the Piece you have to play with");
+		System.out.println(boardToPlay.toString(1));
+		System.out.println("\n\n This is the Board with the Pieces you have to place on");
+		System.out.println(boardPlayed.toString(DEFAULT_SIZE));
+	}
 
 	public int checkCommonCarac(Piece p1,Piece p2,Piece p3,Piece p4){
 		
@@ -104,26 +105,37 @@ public class Game {
 	}
 
 	public void run() {
-		System.out.printf("%s will play first this time !", players[currentPlayer]);
+		System.out.printf("%s will play first this game !", players[currentPlayer]);
 
-		System.out.println(boardStock.toString(DEFAULT_SIZE));
-		System.out.println(boardToPlay.toString(1));
-		System.out.println(boardPlayed.toString(DEFAULT_SIZE));
-		
+		showBoards();
 
 		boolean victory = false; 
-
 		do {
 			System.out.printf("%s , pick a piece for your opponent \n", players[currentPlayer]);
 			
 			
 			int i =0, j=0;
-			System.out.println("Veuillez saisir le i de la case (entre 1 et 4 inclus) :");
-			i=  scanner.nextInt()-1;
-			System.out.println("Veuillez saisir le j de la case (entre 1 et 4 inclus) :");
-			j=  scanner.nextInt()-1;
-
-
+			boolean ok;
+			
+			do{
+				ok=true;
+				System.out.println("Please enter the row you want :");
+				i=  scanner.nextInt()-1; // the -1 is user-friendly, making the tab [1;4] instead of [0,3]
+				if (i!=0 && i!=1 && i!=2 && i!=3) {
+					System.out.println("the row must be between 1 and 4, please try again");
+					ok=false;
+				}
+			}while (!ok);
+			
+			do{
+				ok=true;
+				System.out.println("Please enter the column you want :");
+				j=  scanner.nextInt()-1; // the -1 is user-friendly, making the tab [1;4] instead of [0,3]
+				if (j!=0 && j!=1 && j!=2 && j!=3) {
+					System.out.println("the column must be between 1 and 4, please try again");
+					ok=false;
+				}
+			}while (!ok);
 			
 			try {
 				boardToPlay.putPiece(0,0,boardStock.pickPiece(i,j));
@@ -132,19 +144,31 @@ public class Game {
 			}
 
 			// Turn changing
-			currentPlayer= ++currentPlayer % 2;		// good formule by Benoit, turns 0 in 1 and 1 to 0
+			currentPlayer= ++currentPlayer % 2;
 
-			System.out.println(boardStock.toString(DEFAULT_SIZE));
-			System.out.println(boardToPlay.toString(1));
-			System.out.println(boardPlayed.toString(DEFAULT_SIZE));
+			showBoards();
 			
 			System.out.printf("%s , you can now play the piece that your oppenent choose for you \n", players[currentPlayer]);
 			
-			System.out.println("Veuillez saisir le i de la case (entre 1 et 4 inclus) :");
-			i=  scanner.nextInt()-1;
-			System.out.println("Veuillez saisir le j de la case (entre 1 et 4 inclus) :");
-			j=  scanner.nextInt()-1;
+			do{
+				ok=true;
+				System.out.println("Please enter the row you want :");
+				i=  scanner.nextInt()-1; // the -1 is user-friendly, making the tab [1;4] instead of [0,3]
+				if (i!=0 && i!=1 && i!=2 && i!=3) {
+					System.out.println("the row must be between 1 and 4, please try again");
+					ok=false;
+				}
+			}while (!ok);
 			
+			do{
+				ok=true;
+				System.out.println("Please enter the column you want :");
+				j=  scanner.nextInt()-1; // the -1 is user-friendly, making the tab [1;4] instead of [0,3]
+				if (j!=0 && j!=1 && j!=2 && j!=3) {
+					System.out.println("the column must be between 1 and 4, please try again");
+					ok=false;
+				}
+			}while (!ok);
 			
 			
 			try
@@ -182,9 +206,7 @@ public class Game {
 				} catch (OutsideOfBoardException | NoPieceHereException e1) { /* NOTHING */ }
 			}
 
-			System.out.println(boardStock.toString(DEFAULT_SIZE));
-			System.out.println(boardToPlay.toString(1));
-			System.out.println(boardPlayed.toString(DEFAULT_SIZE));
+			showBoards();
 			
 		} while (!victory);
 
