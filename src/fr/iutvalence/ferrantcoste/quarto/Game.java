@@ -1,8 +1,8 @@
 package fr.iutvalence.ferrantcoste.quarto;
 
 import java.util.Random; // sert à sortir un nombre aléatoire
-// sert pour récupérer des données en lecture
-import java.util.Scanner;
+import java.util.Scanner; // sert pour récupérer des données en lecture
+import java.io.File;
 
 /**
  * TODO.
@@ -21,14 +21,16 @@ public class Game {
 	public static final int DEFAULT_SIZE = 4;
 
 	/** DEFAULT_SIZE is the maximum number of column and lines . */
-	Board boardStock = new Board(DEFAULT_SIZE);
+	private final Board boardStock = new Board(DEFAULT_SIZE);
 	/** DEFAULT_SIZE is the maximum number of column and lines . */
-	Board boardPlayed = new Board(DEFAULT_SIZE);
+	private final Board boardPlayed = new Board(DEFAULT_SIZE);
 	/** DEFAULT_SIZE is the maximum number of column and lines . */
-	Board boardToPlay = new Board(1);
+	private final Board boardToPlay = new Board(1);
 
+	private final Scanner scanner;
 
-	public Game(Player player1, Player player2) {
+	public Game(Player player1, Player player2, Scanner sc) {
+		scanner = sc;
 		players = new Player[] { player1, player2 };
 		/* End of initializing the players */
 		
@@ -61,11 +63,12 @@ public class Game {
 
 
 	public int checkCommonCarac(Piece p1,Piece p2,Piece p3,Piece p4){
+		
 		if (p1 == null || p2 == null || p3 == null || p4 == null) {
 			return 0;
 		}
 
-		if( p1.getFull()==p2.getFull()==p3.getFull()==p4.getFull() ){
+		if( p1.getFull()==p2.getFull()&&p2.getFull()==p3.getFull()&&p3.getFull()==p4.getFull() ){
 			if (p1.getFull()) {
 				return 1;					// 1 mean the 4 pieces are all full
 			}
@@ -73,7 +76,7 @@ public class Game {
 				return 2;					// 2 mean the 4 pieces are all not full
 			}
 		}
-		if( p1.getSquare()==p2.getSquare()==p3.getSquare()==p4.getSquare() ){
+		if( p1.getSquare()==p2.getSquare()&&p2.getSquare()==p3.getSquare()&&p3.getSquare()==p4.getSquare() ){
 			if (p1.getSquare()==true) {
 				return 3;					// 3 mean the 4 pieces are all square
 			}
@@ -81,7 +84,7 @@ public class Game {
 				return 4;					// 4 mean the 4 pieces are all not square
 			}		
 		}
-		if( p1.getWhite()==p2.getWhite()==p3.getWhite()==p4.getWhite() ){
+		if( p1.getWhite()==p2.getWhite()&&p2.getWhite()==p3.getWhite()&&p3.getWhite()==p4.getWhite() ){
 			if (p1.getWhite()==true) {
 				return 5;					// 5 mean the 4 pieces are all white
 			}
@@ -89,7 +92,7 @@ public class Game {
 				return 6;					// 6 mean the 4 pieces are all not white
 			}		
 		}
-		if( p1.getTall()==p2.getTall()==p3.getTall()==p4.getTall() ){
+		if( p1.getTall()==p2.getTall()&&p2.getTall()==p3.getTall()&&p3.getTall()==p4.getTall() ){
 			if (p1.getTall()==true) {
 				return 7;					// 7 mean the 4 pieces are all tall
 			}
@@ -109,22 +112,21 @@ public class Game {
 		
 
 		boolean victory = false; 
+
 		do {
 			System.out.printf("%s , pick a piece for your opponent \n", players[currentPlayer]);
 			
 			
-			int i2 =0, j2=0;
-			Scanner scI2 = new Scanner(System.in);
-			System.out.println("Veuillez saisir le i de la case :");
-			i2=  scI2.nextInt();
-			Scanner scJ2 = new Scanner(System.in);
-			System.out.println("Veuillez saisir le j de la case :");
-			j2=  scJ2.nextInt();
+			int i =0, j=0;
+			System.out.println("Veuillez saisir le i de la case (entre 1 et 4 inclus) :");
+			i=  scanner.nextInt()-1;
+			System.out.println("Veuillez saisir le j de la case (entre 1 et 4 inclus) :");
+			j=  scanner.nextInt()-1;
 
 
 			
 			try {
-				boardToPlay.putPiece(0,0,boardStock.pickPiece(i2,j2));
+				boardToPlay.putPiece(0,0,boardStock.pickPiece(i,j));
 			} catch (PieceAlreadyHereException | OutsideOfBoardException | NoPieceHereException e1) {
 				e1.printStackTrace();
 			}
@@ -138,52 +140,54 @@ public class Game {
 			
 			System.out.printf("%s , you can now play the piece that your oppenent choose for you \n", players[currentPlayer]);
 			
-			System.out.println("Veuillez saisir le i de la case :");
-			i2=  scI2.nextInt();
-			System.out.println("Veuillez saisir le j de la case :");
-			j2=  scJ2.nextInt();
+			System.out.println("Veuillez saisir le i de la case (entre 1 et 4 inclus) :");
+			i=  scanner.nextInt()-1;
+			System.out.println("Veuillez saisir le j de la case (entre 1 et 4 inclus) :");
+			j=  scanner.nextInt()-1;
 			
-			scI2.close();
-			scJ2.close();
 			
 			
 			try
 			{
-				boardPlayed.putPiece(i2,j2,boardToPlay.pickPiece(1,1));
+				boardPlayed.putPiece(i,j,boardToPlay.pickPiece(0,0));
 			} catch (PieceAlreadyHereException | OutsideOfBoardException | NoPieceHereException e1) {
 				e1.printStackTrace();
 			}
 
-			if( i2==0&&(j2==0||j2==3) || i2==3&&(j2==0||j2==3) || i2==1&&(j2==1||j2==2) || i2==2&&(j2==1||j2==2) ) {
+			if( i==0&&(j==0||j==3) || i==3&&(j==0||j==3) || i==1&&(j==1||j==2) || i==2&&(j==1||j==2) ) {
 				try {
-					victory = (i2 == j2) 
-							? !(checkCommonCarac(boardPlayed.watchPiece(0,0), boardPlayed.watchPiece(1,1), boardPlayed.watchPiece(2,2), boardPlayed.watchPiece(3,3)) == 0 )
-							: !(checkCommonCarac(boardPlayed.watchPiece(0,3), boardPlayed.watchPiece(1,2), boardPlayed.watchPiece(2,1), boardPlayed.watchPiece(3,0)) == 0 );
-				} catch (OutsideOfBoardException | NoPieceHereException e1) {
-					e1.printStackTrace();
-				}				
+					System.out.println("on test la diag");
+					victory = (i == j) 
+							? (checkCommonCarac(boardPlayed.watchPiece(0,0), boardPlayed.watchPiece(1,1), boardPlayed.watchPiece(2,2), boardPlayed.watchPiece(3,3)) != 0 )
+							: (checkCommonCarac(boardPlayed.watchPiece(0,3), boardPlayed.watchPiece(1,2), boardPlayed.watchPiece(2,1), boardPlayed.watchPiece(3,0)) != 0 );
+
+				} catch (OutsideOfBoardException | NoPieceHereException e1) { /* NOTHING */ }
+		
 			}
 			
-			if (!victory)	
+			if (!victory)
 			{
 				try {
-					victory = !(checkCommonCarac(boardPlayed.watchPiece(i2,0),boardPlayed.watchPiece(i2,1),boardPlayed.watchPiece(i2,2),boardPlayed.watchPiece(i2,3))==0);
-				} catch (OutsideOfBoardException | NoPieceHereException e1) {
-					e1.printStackTrace();
-				}			
+					System.out.println("on test la colonne");
+					victory = (checkCommonCarac(boardPlayed.watchPiece(i,0),boardPlayed.watchPiece(i,1),boardPlayed.watchPiece(i,2),boardPlayed.watchPiece(i,3))!=0);
+				} catch (OutsideOfBoardException | NoPieceHereException e1) { /* NOTHING */ }
+
 						
 			}
 			if (!victory)	
 			{
 				try {
-					victory = !(checkCommonCarac(boardPlayed.watchPiece(0,j2),boardPlayed.watchPiece(1,j2),boardPlayed.watchPiece(2,j2),boardPlayed.watchPiece(3,j2) )==0);
-				} catch (OutsideOfBoardException | NoPieceHereException e1) {
-					e1.printStackTrace();
-				}			
+					System.out.println("on test la ligne");
+					victory = (checkCommonCarac(boardPlayed.watchPiece(0,j),boardPlayed.watchPiece(1,j),boardPlayed.watchPiece(2,j),boardPlayed.watchPiece(3,j) )!=0);
+				} catch (OutsideOfBoardException | NoPieceHereException e1) { /* NOTHING */ }
 			}
 
+			System.out.println(boardStock.toString(DEFAULT_SIZE));
+			System.out.println(boardToPlay.toString(1));
+			System.out.println(boardPlayed.toString(DEFAULT_SIZE));
+			
 		} while (!victory);
-		
-		
+
+		System.out.printf("%s , you win !",players[currentPlayer]);		
 	}
 }
