@@ -1,7 +1,7 @@
 package fr.iutvalence.ferrantcoste.quarto;
 /**
  * define a board like a table of box
- *
+ *gzerqgzergzegzergzerg
  * @author Ferrant & Costechareyre
  * @version 1
  */
