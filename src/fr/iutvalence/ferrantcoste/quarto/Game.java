@@ -1,7 +1,9 @@
 package fr.iutvalence.ferrantcoste.quarto;
 
-import java.util.Random; 	/* sert à sortir un nombre aléatoire */
-import java.util.Scanner; 	/* sert pour récupérer des données en lecture */
+
+import java.util.Random; 	// to use random
+import java.util.Scanner; 	// To read data entry
+import java.io.File;		
 
 /**
  * TODO.
@@ -10,14 +12,14 @@ import java.util.Scanner; 	/* sert pour récupérer des données en lecture */
  * @version 1
  */
 public class Game {
-
+	
 	private Player[] players;
+	/** This is the number of the current player*/
 	private int currentPlayer;
 	int turnCount=0;
 	private HighScores nameScoreFile;
 	/** DEFAULT_SIZE is the maximum number of column and lines . */
 	public static final int DEFAULT_SIZE = 4;
-
 	/** This is the Board with the Pieces you have to pick for your opponent . */
 	private final Board boardStock = new Board(DEFAULT_SIZE);
 	/** This is the Board with the Piece you have to play with. */
@@ -25,10 +27,8 @@ public class Game {
 	/** This is the Board with the Pieces you have to place on */
 	private final Board boardToPlay = new Board(1);
 
-	private final Scanner scanner;
 
-	public Game(Player player1, Player player2, Scanner sc) {
-		scanner = sc;
+	public Game(Player player1, Player player2) {
 		players = new Player[] { player1, player2 };
 		
 		try {
@@ -107,34 +107,13 @@ public class Game {
 		System.out.printf("%s will play first this game !", players[currentPlayer]);
 
 		showBoards();
-
+		int j=0, i=0;
+		players[currentPlayer].askRow();
+		players[currentPlayer].askColumn();
+		
 		boolean victory = false; 
 		do {
 			System.out.printf("%s , pick a piece for your opponent \n", players[currentPlayer]);
-			
-			
-			int i =0, j=0;
-			boolean ok;
-			
-			do{
-				ok=true;
-				System.out.println("Please enter the row you want :");
-				i=  scanner.nextInt()-1; // the -1 is user-friendly, making the tab [1;4] instead of [0,3]
-				if (i!=0 && i!=1 && i!=2 && i!=3) {
-					System.out.println("the row must be between 1 and 4, please try again");
-					ok=false;
-				}
-			}while (!ok);
-			
-			do{
-				ok=true;
-				System.out.println("Please enter the column you want :");
-				j=  scanner.nextInt()-1; // the -1 is user-friendly, making the tab [1;4] instead of [0,3]
-				if (j!=0 && j!=1 && j!=2 && j!=3) {
-					System.out.println("the column must be between 1 and 4, please try again");
-					ok=false;
-				}
-			}while (!ok);
 			
 			try {
 				boardToPlay.putPiece(0,0,boardStock.pickPiece(i,j));
@@ -151,25 +130,8 @@ public class Game {
 			
 			System.out.printf("%s , you can now play the piece that your oppenent choose for you \n", players[currentPlayer]);
 			
-			do{
-				ok=true;
-				System.out.println("Please enter the row you want :");
-				i=  scanner.nextInt()-1; // the -1 is user-friendly, making the tab [1;4] instead of [0,3]
-				if (i!=0 && i!=1 && i!=2 && i!=3) {
-					System.out.println("the row must be between 1 and 4, please try again");
-					ok=false;
-				}
-			}while (!ok);
-			
-			do{
-				ok=true;
-				System.out.println("Please enter the column you want :");
-				j=  scanner.nextInt()-1; // the -1 is user-friendly, making the tab [1;4] instead of [0,3]
-				if (j!=0 && j!=1 && j!=2 && j!=3) {
-					System.out.println("the column must be between 1 and 4, please try again");
-					ok=false;
-				}
-			}while (!ok);
+			players[currentPlayer].askRow();
+			players[currentPlayer].askColumn();
 			
 			
 			try
@@ -181,7 +143,7 @@ public class Game {
 
 			if( i==0&&(j==0||j==3) || i==3&&(j==0||j==3) || i==1&&(j==1||j==2) || i==2&&(j==1||j==2) ) {
 				try {
-					System.out.println("on test la diag");
+					System.out.println("Check diag");
 					victory = (i == j) 
 							? (checkCommonCarac(boardPlayed.watchPiece(0,0), boardPlayed.watchPiece(1,1), boardPlayed.watchPiece(2,2), boardPlayed.watchPiece(3,3)) != 0 )
 							: (checkCommonCarac(boardPlayed.watchPiece(0,3), boardPlayed.watchPiece(1,2), boardPlayed.watchPiece(2,1), boardPlayed.watchPiece(3,0)) != 0 );
@@ -193,7 +155,7 @@ public class Game {
 			if (!victory)
 			{
 				try {
-					System.out.println("on test la colonne");
+					System.out.println("Check column");
 					victory = (checkCommonCarac(boardPlayed.watchPiece(i,0),boardPlayed.watchPiece(i,1),boardPlayed.watchPiece(i,2),boardPlayed.watchPiece(i,3))!=0);
 				} catch (OutsideOfBoardException | NoPieceHereException e1) { /* NOTHING */ }
 
@@ -202,7 +164,7 @@ public class Game {
 			if (!victory)	
 			{
 				try {
-					System.out.println("on test la ligne");
+					System.out.println("Check line");
 					victory = (checkCommonCarac(boardPlayed.watchPiece(0,j),boardPlayed.watchPiece(1,j),boardPlayed.watchPiece(2,j),boardPlayed.watchPiece(3,j) )!=0);
 				} catch (OutsideOfBoardException | NoPieceHereException e1) { /* NOTHING */ }
 			}
