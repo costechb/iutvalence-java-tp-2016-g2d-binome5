@@ -14,13 +14,15 @@ public class Player {
 	/** num is the number of the player (the first get the number 1) */
 	private final int num;
 
+	private int score;
+
 	/**
 	 * 
 	 * @return an Object Player
 	 */
 	public Player(int num, String pseudo) {
-		this.pseudo = pseudo;
 		this.num = num;
+		this.pseudo = pseudo;
 	}
 
 	public String getPseudo() {
@@ -35,4 +37,13 @@ public class Player {
 	public String toString() {
 		return pseudo;
 	}
+
+	public int getScore() {
+		return score;
+	}
+	
+	public void setScore(int turnCount) {
+		this.score=turnCount;
+	}
+	
 }

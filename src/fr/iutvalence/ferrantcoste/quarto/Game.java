@@ -1,8 +1,7 @@
 package fr.iutvalence.ferrantcoste.quarto;
 
-import java.util.Random; // sert à sortir un nombre aléatoire
-import java.util.Scanner; // sert pour récupérer des données en lecture
-import java.io.File;
+import java.util.Random; 	/* sert à sortir un nombre aléatoire */
+import java.util.Scanner; 	/* sert pour récupérer des données en lecture */
 
 /**
  * TODO.
@@ -13,9 +12,9 @@ import java.io.File;
 public class Game {
 
 	private Player[] players;
-
 	private int currentPlayer;
-
+	int turnCount=0;
+	private HighScores nameScoreFile;
 	/** DEFAULT_SIZE is the maximum number of column and lines . */
 	public static final int DEFAULT_SIZE = 4;
 
@@ -145,6 +144,8 @@ public class Game {
 
 			// Turn changing
 			currentPlayer= ++currentPlayer % 2;
+			// Turn counting
+			turnCount++;
 
 			showBoards();
 			
@@ -210,6 +211,8 @@ public class Game {
 			
 		} while (!victory);
 
-		System.out.printf("%s , you win !",players[currentPlayer]);		
+		System.out.printf("%s , you win ! \n",players[currentPlayer]);
+		players[currentPlayer].setScore(turnCount);
+		this.nameScoreFile.submitScores(players[currentPlayer]);
 	}
 }
