@@ -3,7 +3,6 @@ package fr.iutvalence.ferrantcoste.quarto;
 
 import java.util.Random; 	// to use random
 import java.util.Scanner; 	// To read data entry
-import java.io.File;		
 
 /**
  * TODO.
@@ -17,7 +16,6 @@ public class Game {
 	/** This is the number of the current player*/
 	private int currentPlayer;
 	int turnCount=0;
-	private HighScores nameScoreFile;
 	/** DEFAULT_SIZE is the maximum number of column and lines . */
 	public static final int DEFAULT_SIZE = 4;
 	/** This is the Board with the Pieces you have to pick for your opponent . */
@@ -103,22 +101,40 @@ public class Game {
 		return 0;							// 0 mean the 4 pieces have nothing in common
 	}
 
+
 	public void run() {
 		System.out.printf("%s will play first this game !", players[currentPlayer]);
 
 		showBoards();
-		int j=0, i=0;
-		players[currentPlayer].askRow();
-		players[currentPlayer].askColumn();
+		/**
+		 * i is the row index
+		 */
+		int i;
+		/**
+		 * j is the column index
+		 */
+		int j;
+		boolean ok;
+		
+
+
 		
 		boolean victory = false; 
 		do {
 			System.out.printf("%s , pick a piece for your opponent \n", players[currentPlayer]);
-			
+			do{
+				ok=true;
+				i = players[currentPlayer].askRow();
+				j = players[currentPlayer].askColumn();
+				if(!boardStock.isOccuped(i, j)){
+					System.out.printf("\n There is no Piece on the square you chose. Try again");
+					ok=false;
+				}
+			}while(!ok);
 			try {
 				boardToPlay.putPiece(0,0,boardStock.pickPiece(i,j));
 			} catch (PieceAlreadyHereException | OutsideOfBoardException | NoPieceHereException e1) {
-				e1.printStackTrace();
+				/* No need with precedent do while */
 			}
 
 			// Turn changing
@@ -128,11 +144,18 @@ public class Game {
 
 			showBoards();
 			
-			System.out.printf("%s , you can now play the piece that your oppenent choose for you \n", players[currentPlayer]);
+			System.out.printf("%s , you can now play the piece that %s chose for you \n", players[currentPlayer],players[++currentPlayer % 2]);
 			
-			players[currentPlayer].askRow();
-			players[currentPlayer].askColumn();
-			
+			do{
+				ok=true;
+				i = players[currentPlayer].askRow();
+				j = players[currentPlayer].askColumn();
+				if(boardPlayed.isOccuped(i, j)){
+					System.out.printf("\n The square you chose is occuped. Try again");
+					ok=false;
+				}
+			}while(!ok);
+
 			
 			try
 			{
@@ -143,7 +166,7 @@ public class Game {
 
 			if( i==0&&(j==0||j==3) || i==3&&(j==0||j==3) || i==1&&(j==1||j==2) || i==2&&(j==1||j==2) ) {
 				try {
-					System.out.println("Check diag");
+					System.out.println("Test diag");
 					victory = (i == j) 
 							? (checkCommonCarac(boardPlayed.watchPiece(0,0), boardPlayed.watchPiece(1,1), boardPlayed.watchPiece(2,2), boardPlayed.watchPiece(3,3)) != 0 )
 							: (checkCommonCarac(boardPlayed.watchPiece(0,3), boardPlayed.watchPiece(1,2), boardPlayed.watchPiece(2,1), boardPlayed.watchPiece(3,0)) != 0 );
@@ -155,7 +178,7 @@ public class Game {
 			if (!victory)
 			{
 				try {
-					System.out.println("Check column");
+					System.out.println("Test column");
 					victory = (checkCommonCarac(boardPlayed.watchPiece(i,0),boardPlayed.watchPiece(i,1),boardPlayed.watchPiece(i,2),boardPlayed.watchPiece(i,3))!=0);
 				} catch (OutsideOfBoardException | NoPieceHereException e1) { /* NOTHING */ }
 
@@ -164,7 +187,7 @@ public class Game {
 			if (!victory)	
 			{
 				try {
-					System.out.println("Check line");
+					System.out.println("Test line");
 					victory = (checkCommonCarac(boardPlayed.watchPiece(0,j),boardPlayed.watchPiece(1,j),boardPlayed.watchPiece(2,j),boardPlayed.watchPiece(3,j) )!=0);
 				} catch (OutsideOfBoardException | NoPieceHereException e1) { /* NOTHING */ }
 			}
@@ -173,8 +196,7 @@ public class Game {
 			
 		} while (!victory);
 
-		System.out.printf("%s , you win ! \n",players[currentPlayer]);
+		System.out.printf("%s , you win in %d turns\n",players[currentPlayer],turnCount);
 		players[currentPlayer].setScore(turnCount);
-		this.nameScoreFile.submitScores(players[currentPlayer]);
 	}
 }

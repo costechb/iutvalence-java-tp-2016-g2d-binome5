@@ -23,9 +23,10 @@ public class Player {
 	 * 
 	 * @return an Object Player
 	 */
-	public Player(int num, String pseudo) {
+	public Player(int num, String pseudo, Scanner scanner) {
 		this.num = num;
 		this.pseudo = pseudo;
+		this.scanner = scanner;
 	}
 	
 	public String getPseudo() {return pseudo;}
@@ -38,10 +39,10 @@ public class Player {
 		boolean ok;
 		do{
 			ok=true;
-			System.out.printf("%s Please enter the row you want :",this.pseudo);
-			i= scanner.nextInt()-1; // the -1 is user-friendly, making the tab [1;4] instead of [0,3]
+			System.out.printf("\n %s Please enter the row you want :",this.pseudo);
+			i= (scanner.nextInt())-1; // the -1 is user-friendly, making the tab [1;4] instead of [0,3]
 			if (i!=0 && i!=1 && i!=2 && i!=3) {
-				System.out.println("the row must be between 1 and 4, please try again");
+				System.out.println("\n the row must be between 1 and 4, please try again");
 				ok=false;
 			}
 		}while (!ok);
@@ -53,10 +54,10 @@ public class Player {
 		boolean ok;
 		do{
 			ok=true;
-			System.out.printf("%s Please enter the column you want :", this.pseudo);
+			System.out.printf("\n %s Please enter the column you want :", this.pseudo);
 			j=  scanner.nextInt()-1; // the -1 is user-friendly, making the tab [1;4] instead of [0,3]
 			if (j!=0 && j!=1 && j!=2 && j!=3) {
-				System.out.println("the column must be between 1 and 4, please try again");
+				System.out.println("\n the column must be between 1 and 4, please try again");
 				ok=false;
 			}
 		}while (!ok);
