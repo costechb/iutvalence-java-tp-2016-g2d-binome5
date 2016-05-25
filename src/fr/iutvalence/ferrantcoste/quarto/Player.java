@@ -47,7 +47,7 @@ public class Player {
 		}while (!ok);
 		return i;
 	}
-	/***/
+	/***/ 
 	public int askColumn(){
 		int j=0;
 		boolean ok;
